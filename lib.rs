@@ -172,7 +172,7 @@ mod geode_faucet {
         // lets any one user check if they are eligible to get coin
         // if eligible, it transfers the eligible_payout to their account
         #[ink(message)]
-        pub fn check_eligibility(&self, my_ip_address: Vec<u8>) -> u8 {
+        pub fn check_eligibility(&self, my_ip_address: Vec<u8>) -> (u8, u64, u128) {
             let caller = Self::env().caller();
             let mut result: u8 = 0;
 
@@ -209,7 +209,7 @@ mod geode_faucet {
             }
 
             // return result (yes or no)
-            result
+            (result, self.limit_timer, self.limit_ip_total)
         }
 
 
